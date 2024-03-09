@@ -3,7 +3,7 @@ name: 1 Deploy PoC Enviroment
 on: workflow_dispatch
 
 env:
-  AZURE_RG: OABoT_POC
+  AZURE_RG: OABoT_POC_jmgarzonv1
   AZURE_SUBSCRIPTION: ${{ secrets.AZURE_SUBSCRIPTION }}
   AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
   AZURE_REGION: eastus
