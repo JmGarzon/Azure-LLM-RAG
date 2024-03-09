@@ -31,16 +31,19 @@ namespace EchoBot.Bots
 
             var chatCompletionsOptions = new ChatCompletionsOptions()
             {
+                DeploymentName = deployment,
                 Messages =
                 {
-                    new ChatMessage(ChatRole.System, system),
-                    new ChatMessage(ChatRole.User, turnContext.Activity.Text),
+                    // The system message represents instructions or other guidance about how the assistant should behave
+                    new ChatRequestSystemMessage(system),
+                    // User messages represent current or historical input from the end user
+                    new ChatRequestUserMessage(turnContext.Activity.Text),
                 },
                 MaxTokens = int.Parse(tokens)
             };
 
 
-            Response<ChatCompletions> response = client.GetChatCompletions(deploymentOrModelName: deployment,chatCompletionsOptions);
+             Response<ChatCompletions> response = client.GetChatCompletions(chatCompletionsOptions);
 
             var replyText = response.Value.Choices[0].Message.Content;
             await turnContext.SendActivityAsync(MessageFactory.Text(replyText, replyText), cancellationToken);
